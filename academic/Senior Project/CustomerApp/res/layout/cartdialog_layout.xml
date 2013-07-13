@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp" >
+
+        <ImageButton
+            android:id="@+id/dialogButtonSubtract"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/subtract" />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/dialogQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/dialogButtonAdd"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/add" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <Button
+            android:id="@+id/dialogButtonUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update" />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/dialogButtonCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dialogItemID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+</LinearLayout>

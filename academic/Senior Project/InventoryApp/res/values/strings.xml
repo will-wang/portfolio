@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Inventory App</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="next">Next</string>
+    <string name="submit">Submit Payment</string>
+    <string name="scanItem">Scan Item</string>
+    <string name="password">Password</string>
+    <string name="inventoryID">Inventory Associate ID</string>
+    <string name="apply">Apply</string>
+    <string name="logo">LossBoys</string>
+    <string name="login">Login</string>
+    <string name="title_cart_detail">Inventory App</string>
+    
+    
+
+</resources>

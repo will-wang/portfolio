@@ -1,0 +1,63 @@
+<com.lossboys.customerapp.dashboard.DashboardLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1"
+    android:background="#336699" >
+
+    <!--  <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">-->
+    	
+    <!-- Scan Button -->
+    <Button
+        android:id="@+id/btn_scan"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_scan"
+        android:text="@string/scanItem"
+        android:textColor="#ffffff" />
+    
+	<!-- Logout Button -->
+    <Button
+        android:id="@+id/btn_logout"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_logout"
+        android:text="Logout"
+        android:textColor="#ffffff" />
+
+    <!-- Cart Button -->
+
+    <Button
+        android:id="@+id/btn_cart"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_cart"
+        android:text="Cart"
+        android:textColor="#ffffff" />
+
+    <!-- Places Button -->
+
+    <Button
+        android:id="@+id/btn_checkout"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_checkout"
+        android:text="Checkout"
+        android:textColor="#ffffff" />
+
+    <!-- Events Button -->
+
+    <Button
+        android:id="@+id/btn_account"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_account"
+        android:text="Account"
+        android:textColor="#ffffff" />
+
+    <!-- Photos Button -->
+
+    <Button
+        android:id="@+id/btn_photos"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_photos"
+        android:text="Photos"
+        android:textColor="#ffffff" />
+
+</com.lossboys.customerapp.dashboard.DashboardLayout>
