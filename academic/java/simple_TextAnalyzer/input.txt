@@ -1,0 +1,24 @@
+Introduction
+In this assignment, you'll get practice working with strings and arrays. Manipulating text strings and performing array operations are two of the most common operations that are routinely performed in computer programs. These are certainly some of the most useful skills that you should learn in this course.
+
+Counting Words
+In this assignment, you'll write a Java program that will read in a large body of text (e.g., a chapter of a book) and produce some statistics from it. More specifically, your program will read an integer from the command line that specifies the number of unique words at the start of the text file to "track." Your objective is to count how often each of these words occurs in the entire text file (including the initial appearance(s)). Additionally, your program will identify the longest sentence in the text file where the length of a sentence is measured by the number of words in it. More details about these tasks are described below. Be sure to read the entire assignment before writing this program. Note that this assignment is a basic command-line program without any GUI.
+
+The first thing that this program must do is to find the frequencies of a given number of initial words in the input text. This may be broken into several steps:
+
+•The user will specify an integer number N, via the command line, that is the number of unique words to track. Our book discusses how this is done in section 7.4. 
+If you are using jGRASP, select the "Run Arguments" and "Run in MSDOS Window" options under the Run menu for the file that you are working on. If these two options are not selected, your program will not function correctly in jGRASP. You will then be able to enter a command-line argument in the text field above the source code.
+
+If you are using the command line, provide the command line argument directly after the name of the class (in this example, we assume that it's called TextAnalyzer.class):
+
+% java TextAnalyzer 1000Try printing out the value of the command-line argument N to make sure that you can correctly read the command line argument.
+
+•Read in the first unique N words from System.in, via the Scanner class, into a size-N array of Strings. (Do not worry about case in this program, that is, "The" and "the" are considered the same word.) This is the same process that you've been using to get keyboard input.
+•Count the frequencies of these N initial words for the entire body of input text. The count for each of the initial words is already at least 1. 
+Your program should continue reading in words while they are available. This will allow your program to input multiple lines of data. Keep in mind that you should ignore punctuation when deciding if two words match.
+
+The second thing that this program must do is to find the longest sentence in the input text. The longest sentence has the greatest number of words in it. For simplicity, you may assume that sentences are separated by either a period ('.'), an exclamation point ('!'), or a question mark ('?').
+
+You must use arrays (standard arrays, not ArrayList) in this assignment (students who have knowledge of data structures may realize other data structures are more efficient, but the purpose of this homework is to gain practice with arrays). When you create an array, you should think carefully about the maximum possible size of that array--do not simply declare your array to be of size 1000, for example.
+
+Here's an example run, with a value of N = 5. If you are using jGRASP, the value "5" is entered in the Run Arguments text field above your program's source code. Keyboard input is shown in bold. Holding down the Control key and hitting Z will cause your program to stop accepting input. On some UNIX systems and other systems, you must use Ctrl-D or Ctrl-C instead.
