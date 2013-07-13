@@ -1,0 +1,49 @@
+cd /nethome/kstafford3/proj3/
+make -k 
+gcc -g `pkg-config fuse --cflags --libs` `pkg-config --cflags --libs ImageMagick` -D_FILE_OFFSET_BITS=64 -o main.o -c main.c
+gcc: -lfuse: linker input file unused because linking not done
+gcc: -lrt: linker input file unused because linking not done
+gcc: -ldl: linker input file unused because linking not done
+gcc: -lWand: linker input file unused because linking not done
+gcc: -lMagick: linker input file unused because linking not done
+gcc -g `pkg-config fuse --cflags --libs` `pkg-config --cflags --libs ImageMagick` -D_FILE_OFFSET_BITS=64 -o ypfs.o -c ypfs.c
+ypfs.c: In function ‘ypfs_open’:
+ypfs.c:197: warning: passing argument 2 of ‘copy_file’ discards qualifiers from pointer target type
+ypfs.c:200: warning: passing argument 2 of ‘add_node’ discards qualifiers from pointer target type
+ypfs.c: In function ‘ypfs_write’:
+ypfs.c:249: warning: passing argument 2 of ‘set_edited’ discards qualifiers from pointer target type
+ypfs.c: In function ‘ypfs_release’:
+ypfs.c:277: warning: passing argument 2 of ‘is_edited’ discards qualifiers from pointer target type
+ypfs.c:281: warning: passing argument 2 of ‘rm_node’ discards qualifiers from pointer target type
+gcc: -lfuse: linker input file unused because linking not done
+gcc: -lrt: linker input file unused because linking not done
+gcc: -ldl: linker input file unused because linking not done
+gcc: -lWand: linker input file unused because linking not done
+gcc: -lMagick: linker input file unused because linking not done
+gcc -g `pkg-config fuse --cflags --libs` `pkg-config --cflags --libs ImageMagick` -D_FILE_OFFSET_BITS=64 -o util.o -c util.c
+util.c: In function ‘store_contains’:
+util.c:94: warning: passing argument 2 of ‘prefix_path’ discards qualifiers from pointer target type
+util.c: In function ‘tmp_path’:
+util.c:208: warning: passing argument 1 of ‘get_filename’ discards qualifiers from pointer target type
+util.c: In function ‘fix_tmp_path’:
+util.c:229: warning: initialization discards qualifiers from pointer target type
+gcc: -lfuse: linker input file unused because linking not done
+gcc: -lrt: linker input file unused because linking not done
+gcc: -ldl: linker input file unused because linking not done
+gcc: -lWand: linker input file unused because linking not done
+gcc: -lMagick: linker input file unused because linking not done
+gcc -g `pkg-config fuse --cflags --libs` `pkg-config --cflags --libs ImageMagick` -D_FILE_OFFSET_BITS=64 -o images.o -c images.c
+gcc: -lfuse: linker input file unused because linking not done
+gcc: -lrt: linker input file unused because linking not done
+gcc: -ldl: linker input file unused because linking not done
+gcc: -lWand: linker input file unused because linking not done
+gcc: -lMagick: linker input file unused because linking not done
+gcc -g `pkg-config fuse --cflags --libs` `pkg-config --cflags --libs ImageMagick` -D_FILE_OFFSET_BITS=64 -o my_list.o -c my_list.c
+gcc: -lfuse: linker input file unused because linking not done
+gcc: -lrt: linker input file unused because linking not done
+gcc: -ldl: linker input file unused because linking not done
+gcc: -lWand: linker input file unused because linking not done
+gcc: -lMagick: linker input file unused because linking not done
+gcc -g `pkg-config fuse --cflags --libs` `pkg-config --cflags --libs ImageMagick` -D_FILE_OFFSET_BITS=64 -o ypfs ypfs.o main.o util.o images.o my_list.o -lexif
+
+Compilation finished at Sun Apr 29 14:40:51

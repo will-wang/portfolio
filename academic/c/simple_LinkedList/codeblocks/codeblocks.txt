@@ -1,0 +1,22 @@
+To use this to do your homework
+
+Two targets are provided Debug and Release. Debug is the debug version of the program
+and Release is the release version.
+
+When you are ready to compile your program hit the Build Button or choose it from the menu Build > Build (Ctrl + F9)
+And to run it hit the Run Button or choose it from the menu (Ctrl + F10)
+or you may select Build + Run (F9)
+
+If you get problems when Code::Blocks is trying to link your program (something about g++)
+then sudo apt-get install g++ within a terminal.
+
+To run gdb under the Debug menu select start (F8) you may set breakpoints within the IDE
+and the IDE will tell you if a segmentation fault occurs.
+You can also graphically step through your program.
+
+
+Note the project is already set up to compile under our flags 
+And you must still turn in the makefile when you submit this assignment
+(and please do test your program under the makefile before you submit)!
+
+For more info email Brandon and I will be happy to answer your questions.

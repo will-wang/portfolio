@@ -1,0 +1,28 @@
+CC=gcc
+
+CFLAGS=-g `pkg-config fuse --cflags --libs` `pkg-config --cflags --libs MagickWand` -D_FILE_OFFSET_BITS=64
+
+all: link
+
+link: maino ypfso utilo imageso mylisto
+	$(CC) $(CFLAGS) -o ypfs ypfs.o main.o util.o images.o my_list.o -lexif
+
+ypfso: ypfs.c
+	$(CC) $(CFLAGS) -o ypfs.o -c ypfs.c
+
+utilo: util.c
+	$(CC) $(CFLAGS) -o util.o -c util.c
+
+imageso: images.c
+	$(CC) $(CFLAGS) -o images.o -c images.c
+
+mylisto: my_list.c
+	$(CC) $(CFLAGS) -o my_list.o -c my_list.c
+
+maino: main.c
+	$(CC) $(CFLAGS) -o main.o -c main.c
+
+clean:
+	rm ypfs
+	rm *~
+	rm *.o

@@ -1,0 +1,355 @@
+#include "ypfs.h"
+
+int ypfs_getattr(const char *path, struct stat *stbuf)
+{
+  print_log("ypfs_getattr\n");
+
+  char* original_path = strdup(path);
+  path = file_new_path(path);
+  
+  int res;
+  
+  res = lstat(path, stbuf);
+  if (res == -1)
+    {
+      path = tmp_path(original_path);
+      res = lstat(path, stbuf);
+      if(res == -1)
+	{
+	  path = dir_new_path(original_path);
+	  res = lstat(path, stbuf);
+	  if(res == -1)
+	    {
+	      return -errno;
+	    }
+	}
+    }
+
+  FILE *pFile = fopen("/log/ypfs.log", "a");
+  fprintf(pFile, "getattr(%s)\n", path);
+  fclose(pFile);
+ 
+  return 0;
+}
+
+int ypfs_access(const char *path, int mask)
+{
+  print_log("ypfs_access\n");
+  int res;
+
+  char* original_path = strdup(path);
+  path = file_new_path(path);
+
+  res = access(path, mask);
+  if (res == -1)
+    {
+      path = tmp_path(original_path);
+      res = access(path, mask);
+      if(res == -1)
+	{
+	  path = dir_new_path(original_path);
+	  res = access(path, mask);
+	  if(res == -1)
+	    {
+	      return -errno;
+	    }
+	}
+    }
+  
+  FILE *pFile = fopen("/log/ypfs.log", "a");
+  fprintf(pFile, "access(%s)\n", path);
+  fclose(pFile);
+  
+  return 0;
+}
+
+int ypfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
+		 off_t offset, struct fuse_file_info *fi)
+{
+  print_log("ypfs_readdir\n");
+
+  DIR *dp;
+  struct dirent *de;
+
+  path = dir_new_path(path);
+
+  FILE *pFile = fopen("/log/ypfs.log", "a");
+  fprintf(pFile, "readdir(%s)\n", path);
+  fclose(pFile);
+
+  (void) offset;
+  (void) fi;
+
+  dp = opendir(path);
+  if (dp == NULL)
+    return -errno;
+
+  while ((de = readdir(dp)) != NULL) {
+    struct stat st;
+    memset(&st, 0, sizeof(st));
+    st.st_ino = de->d_ino;
+    st.st_mode = de->d_type << 12;
+    if (filler(buf, de->d_name, &st, 0))
+      break;
+  }
+
+  closedir(dp);
+  return 0;
+}
+
+int ypfs_mknod(const char *path, mode_t mode, dev_t rdev)
+{
+  print_log("ypfs_mknod\n");
+  int res;
+
+  path = tmp_path(path);
+
+  FILE *pFile = fopen("/log/ypfs.log", "a");
+  fprintf(pFile, "mknod(%s)\n", path);
+  fclose(pFile);
+
+  res = mknod(path, mode, rdev);
+  
+  if (res == -1)
+    return -errno;
+
+  return 0;
+}
+
+int ypfs_rename(const char *from, const char *to)
+{
+  print_log("ypfs_rename\n");
+  int res;
+
+  from = file_new_path(from);
+  to = file_new_path(to);
+
+  res = rename(from, to);
+  if (res == -1)
+    return -errno;
+
+  return 0;
+}
+
+int ypfs_chmod(const char *path, mode_t mode)
+{
+  print_log("ypfs_chmod\n");
+  int res;
+
+  path = file_new_path(path);
+
+  FILE *pFile = fopen("/log/ypfs.log", "a");
+  fprintf(pFile, "chmod(%s)\n", path);
+  fclose(pFile);
+
+  res = chmod(path, mode);
+  if (res == -1)
+    return -errno;
+
+  return 0;
+}
+
+int ypfs_chown(const char *path, uid_t uid, gid_t gid)
+{
+  print_log("ypfs_chown\n");
+  int res;
+
+  path = file_new_path(path);
+
+  FILE *pFile = fopen("/log/ypfs.log", "a");
+  fprintf(pFile, "chown(%s)\n", path);
+  fclose(pFile);
+
+  res = lchown(path, uid, gid);
+  if (res == -1)
+    return -errno;
+
+  return 0;
+}
+
+int ypfs_truncate(const char *path, off_t size)
+{
+  print_log("ypfs_truncate\n");
+  int res;
+
+  char* original_path = strdup(path);
+  path = file_new_path(path);
+
+  res = truncate(path, size);
+  if (res == -1)
+    {
+      path = tmp_path(original_path);
+      res = truncate(path, size);
+      if(res == -1)
+	{
+	  path = dir_new_path(original_path);
+	  res = truncate(path, size);
+	  if(res == -1)
+	    {
+	      return -errno;
+	    }
+	}
+    }
+  
+  FILE *pFile = fopen("/log/ypfs.log", "a");
+  fprintf(pFile, "truncate(%s)\n", path);
+  fclose(pFile);
+  
+  return 0;
+}
+
+int ypfs_utimens(const char *path, const struct timespec ts[2])
+{
+  print_log("ypfs_utimens\n");
+  int res;
+  struct timeval tv[2];
+
+  path = file_new_path(path);
+
+  FILE *pFile = fopen("/log/ypfs.log", "a");
+  fprintf(pFile, "utimens(%s)\n", path);
+  fclose(pFile);
+
+  tv[0].tv_sec = ts[0].tv_sec;
+  tv[0].tv_usec = ts[0].tv_nsec / 1000;
+  tv[1].tv_sec = ts[1].tv_sec;
+  tv[1].tv_usec = ts[1].tv_nsec / 1000;
+
+  res = utimes(path, tv);
+  if (res == -1)
+    return -errno;
+
+  return 0;
+}
+
+int ypfs_open(const char *path, struct fuse_file_info *fi)
+{
+  print_log("ypfs_open\n");
+  int res;
+
+  char* original_path = strdup(path);
+  
+  FILE *pFile = fopen("/log/ypfs.log", "a");
+  fprintf(pFile, "open (Original Path: %s)\n", path);
+
+  /* Get the temp path */
+  path = tmp_path(path);
+
+  fprintf(pFile, "open(Tmp Path: %s)\n", path);
+  fclose(pFile);
+  
+  if(store_contains(original_path, false))
+    {
+      original_path = file_new_path(original_path);
+      pFile = fopen("/log/ypfs.log", "a");
+      fprintf(pFile, "Store Contains %s.\n", original_path);
+      fclose(pFile);
+      /* See if this file is already in tmp */
+      //if(!contains_node(open_list, path))
+      //{
+      /* If not, copy it there */
+      copy_file(original_path, path);
+      //}
+    }
+  add_node(open_list, path, false);
+
+  pFile = fopen("/log/ypfs.log", "a");
+  fprintf(pFile, "open(%s)\n", path);
+  fclose(pFile);
+
+  res = open(path, fi->flags);
+  if (res == -1)
+    return -errno;
+  
+  close(res);
+  return 0;
+}
+
+int ypfs_read(const char *path, char *buf, size_t size, off_t offset,
+	      struct fuse_file_info *fi)
+{
+  print_log("ypfs_read\n");
+  path = tmp_path(path);
+     
+  FILE *pFile = fopen("/log/ypfs.log", "a");
+  fprintf(pFile, "read(%s)\n", path);
+  fclose(pFile);
+
+  int fd;
+  int res;
+  
+  (void) fi;
+  fd = open(path, O_RDONLY);
+  if (fd == -1)
+    return -errno;
+  
+  res = pread(fd, buf, size, offset);
+  if (res == -1)
+    res = -errno;
+  
+  close(fd);
+  return res; 
+}
+
+int ypfs_write(const char *path, const char *buf, size_t size,
+	       off_t offset, struct fuse_file_info *fi)
+{
+  print_log("ypfs_write\n");
+  path = tmp_path(path);
+  set_edited(open_list, path);
+
+  FILE *pFile = fopen("/log/ypfs.log", "a");
+  fprintf(pFile, "write(%s)\n", path);
+  fclose(pFile);
+
+  int fd;
+  int res;
+  
+  (void) fi;
+  fd = open(path, O_WRONLY);
+  if (fd == -1)
+    return -errno;
+  
+  res = pwrite(fd, buf, size, offset);
+  if (res == -1)
+    res = -errno;
+  
+  close(fd);
+  return res;
+}
+
+int ypfs_release(const char *path, struct fuse_file_info *fi)
+{
+  print_log("ypfs_release\n");
+  path = tmp_path(path);
+
+  FILE *pFile = fopen("/log/ypfs.log", "a");
+  fprintf(pFile, "release(%s)\n", path);
+  fclose(pFile);
+  
+  if(is_edited(open_list, path))
+    {
+      move_back(path);
+    }
+  open_list = rm_node(open_list, path);
+ 
+  return 0;
+}
+
+int ypfs_statfs(const char *path, struct statvfs *stbuf)
+{
+  print_log("ypfs_statfs\n");
+  int res;
+
+  path = file_new_path(path);
+
+  FILE *pFile = fopen("/log/ypfs.log", "a");
+  fprintf(pFile, "statfs(%s)\n", path);
+  fclose(pFile);
+
+  res = statvfs(path, stbuf);
+  if (res == -1)
+    return -errno;
+
+  return 0;
+}
